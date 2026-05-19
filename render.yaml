@@ -14,7 +14,9 @@ services:
     name: nitor-skillhub-registry
     runtime: node
     nodeVersion: 20
-    buildCommand: pnpm install --frozen-lockfile && pnpm build --filter=@nitor-skillhub/registry-server
+    # Render auto-detects pnpm from package.json packageManager field and runs install.
+    # Build command only needs to compile the TypeScript sources.
+    buildCommand: pnpm run build
     startCommand: node apps/registry-server/dist/index.js
     healthCheckPath: /api/health
 
