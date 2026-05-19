@@ -10,6 +10,7 @@
 services:
   - type: web
     name: nitor-skillhub-registry
+    runtime: docker
     dockerfilePath: ./apps/registry-server/Dockerfile
     healthCheckPath: /api/health
 
