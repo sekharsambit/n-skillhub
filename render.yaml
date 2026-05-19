@@ -2,16 +2,20 @@
 # https://render.com/docs/blueprint-spec
 #
 # Deploy:
-#   1. Push this repo to GitHub/GitLab
+#   1. Push this repo to GitHub
 #   2. In Render dashboard: "New > Blueprint"
 #   3. Connect your repo — Render auto-detects this file
-#   4. Done
+#   4. Click "Apply" — done
+#
+# Free tier: uses native Node.js runtime (Docker requires paid plan)
 
 services:
   - type: web
     name: nitor-skillhub-registry
-    runtime: docker
-    dockerfilePath: ./apps/registry-server/Dockerfile
+    runtime: node
+    nodeVersion: 20
+    buildCommand: pnpm install --frozen-lockfile && pnpm build --filter=@nitor-skillhub/registry-server
+    startCommand: node apps/registry-server/dist/index.js
     healthCheckPath: /api/health
 
     envVars:
@@ -20,11 +24,11 @@ services:
       - key: PORT
         value: "3001"
       - key: REGISTRY_DATA_DIR
-        value: /data
+        value: /var/data
 
     # Note: Persistent disk requires Render Starter plan ($7/mo) or above.
     # On the free tier, data is ephemeral — it resets on restart/redeploy.
     # disk:
     #   name: registry-data
-    #   mountPath: /data
+    #   mountPath: /var/data
     #   sizeGB: 1
