@@ -13,9 +13,9 @@ services:
   - type: web
     name: nitor-skillhub-registry
     runtime: node
-    nodeVersion: 20
     # Render auto-detects pnpm from package.json packageManager field and runs install.
     # Build command only needs to compile the TypeScript sources.
+    # Node version is set via .node-version file at repo root.
     buildCommand: pnpm run build
     startCommand: node apps/registry-server/dist/index.js
     healthCheckPath: /api/health
