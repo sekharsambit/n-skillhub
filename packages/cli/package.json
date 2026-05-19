@@ -1,0 +1,41 @@
+{
+  "name": "@nitor-skillhub/cli",
+  "version": "0.1.0",
+  "description": "Nitor SkillHub CLI — skill package manager for AI coding agents",
+  "type": "module",
+  "bin": {
+    "nitor-skill": "./dist/index.js",
+    "nsk": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts",
+    "dev": "tsup src/index.ts --format esm --dts --watch",
+    "test": "vitest run",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@nitor-skillhub/adapters": "workspace:*",
+    "@nitor-skillhub/core": "workspace:*",
+    "@nitor-skillhub/registry-client": "workspace:*",
+    "@nitor-skillhub/scanner": "workspace:*",
+    "@nitor-skillhub/schemas": "workspace:*",
+    "chalk": "^5.3.0",
+    "commander": "^12.0.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.5.0",
+    "vitest": "^1.6.0"
+  }
+}

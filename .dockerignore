@@ -1,0 +1,40 @@
+# Dependencies
+node_modules
+.pnpm-store
+
+# Build outputs
+dist
+.turbo
+.next
+
+# Testing
+coverage
+__tests__
+*.test.ts
+*.spec.ts
+
+# IDE & editors
+.idea
+.vscode
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Git
+.git
+.gitignore
+
+# Docker
+docker-compose*.yml
+
+# Project files
+*.md
+.gitkeep

@@ -1,0 +1,29 @@
+# render.yaml — Render Blueprint for Nitor SkillHub Registry Server
+# https://render.com/docs/blueprint-spec
+#
+# Deploy:
+#   1. Push this repo to GitHub/GitLab
+#   2. In Render dashboard: "New > Blueprint"
+#   3. Connect your repo — Render auto-detects this file
+#   4. Done
+
+services:
+  - type: web
+    name: nitor-skillhub-registry
+    dockerfilePath: ./apps/registry-server/Dockerfile
+    healthCheckPath: /api/health
+
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "3001"
+      - key: REGISTRY_DATA_DIR
+        value: /data
+
+    # Note: Persistent disk requires Render Starter plan ($7/mo) or above.
+    # On the free tier, data is ephemeral — it resets on restart/redeploy.
+    # disk:
+    #   name: registry-data
+    #   mountPath: /data
+    #   sizeGB: 1

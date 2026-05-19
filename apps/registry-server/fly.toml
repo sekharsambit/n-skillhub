@@ -1,0 +1,38 @@
+# fly.toml — Nitor SkillHub Registry Server
+# Deploy: fly launch --dockerfile apps/registry-server/Dockerfile
+# First-time: fly volumes create nitor_registry_data --region ord --size 1
+# Deploy: fly deploy
+
+app = "nitor-skillhub-registry"
+
+[build]
+  dockerfile = "apps/registry-server/Dockerfile"
+
+[env]
+  REGISTRY_DATA_DIR = "/data"
+  NODE_ENV = "production"
+
+[http_service]
+  internal_port = 3001
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
+
+  [[http_service.checks]]
+    grace_period = "10s"
+    interval = "30s"
+    method = "get"
+    path = "/api/health"
+    protocol = "http"
+    timeout = "3s"
+
+[mounts]
+  source = "nitor_registry_data"
+  destination = "/data"
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory_mb = 256
